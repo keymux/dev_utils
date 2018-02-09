@@ -1,26 +1,44 @@
 #!/usr/bin/env node
 
-const git = require('nodegit');
+const util = require("util");
+
+const {
+  diffCurrentHeadWithMaster,
+  formatPatches,
+  getChanges,
+} = require("../lib/git");
+
+const getStackLine = (num, options) => {
+  const line = new Error().stack.split("\n")[num];
+  const colSplit = line.split(":");
+
+  return {
+    lineNum: colSplit[colSplit.length - 2],
+    charNum: colSplit[colSplit.length - 1],
+  };
+};
+
+const print = ele => {
+  console.log(
+    getStackLine(3).lineNum + ":",
+    util.inspect(ele, { colors: true, depth: 3 })
+  );
+};
 
 const main = () => {
-  return git.Repository.open('./')
-    .then(repo => {
-      return Promise.all([repo, repo.index()]);
-    })
+  const patchesFilter = patch => {
+    return patch
+      .newFile()
+      .path()
+      .startsWith(".changes");
+  };
+
+  //return diffCurrentWorkdirWithMaster("./.git")
+  return diffCurrentHeadWithMaster("./.git")
+    .then(diff => getChanges(diff, { patchesFilter }))
     .then(data => {
-      console.log('11');
-      console.log(JSON.stringify(data, null, 2));
-      return Promise.all([data, data[0].getReference('master')]);
-    })
-    .then(data => {
-      return Promise.all([
-        data,
-        git.Diff.indexToIndex(data[0], data[2], data[1]),
-      ]);
-    })
-    .then(data => {
-      console.log('28Hello world!');
-      console.log(JSON.stringify(data, null, 2));
+      console.log(formatPatches(data.patches, { bitbucketComment: true }));
+      console.log();
     })
     .catch(err => {
       console.error(err);
