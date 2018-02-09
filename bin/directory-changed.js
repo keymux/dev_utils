@@ -49,7 +49,7 @@ const main = () => {
 main()
   .then()
   .catch(err => {
-    util.inspect(err);
+    print(err);
 
     process.exit(-1);
   });
