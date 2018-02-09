@@ -37,12 +37,19 @@ const main = () => {
   return diffCurrentHeadWithMaster("./.git")
     .then(diff => getChanges(diff, { patchesFilter }))
     .then(data => {
+      if (!data.patches || data.patches.length === 0) {
+        console.log("No changes were found");
+
+        throw new Error("No changes were found");
+      }
       console.log(formatPatches(data.patches, { bitbucketComment: true }));
-      console.log();
-    })
-    .catch(err => {
-      console.error(err);
     });
 };
 
-main();
+main()
+  .then()
+  .catch(err => {
+    util.inspect(err);
+
+    process.exit(-1);
+  });
