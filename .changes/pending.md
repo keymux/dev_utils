@@ -1,4 +1,4 @@
 ## pending
 
 Feature:
-  * DEV-1: Added bitbucket comment generation
+  * DEV-1: Added bitbucket comment generation for changelogs
