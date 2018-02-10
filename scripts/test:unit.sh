@@ -7,5 +7,5 @@ ROOT_DIR="${SCRIPTS_DIR}/.."
 REPORTS_DIR="${ROOT_DIR}/reports/unit"
 TEST_DIR="${ROOT_DIR}/test/unit"
 
-MASTER_REFERENCE="refs/heads/master" \
+MASTER_REFERENCE="refs/remotes/origin/master" \
   mocha --reporter mochawesome test/unit/**/*.js --reporter-options reportDir="${REPORTS_DIR}"
