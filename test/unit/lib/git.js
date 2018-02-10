@@ -90,7 +90,6 @@ describe("lib/git", () => {
       it("should resolve with a Tree object", () => {
         return repoPromise
           .then(data => git.getReferenceTree(data.repo, masterReference))
-          .then(print)
           .then(masterTree => {
             expect(masterTree instanceof Tree).to.be.true;
           });

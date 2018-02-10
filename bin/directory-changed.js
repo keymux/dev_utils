@@ -19,6 +19,9 @@ const main = () => {
   cliArgs.noChangeMessage =
     cliArgs.noChangeMessage || "No changelog modifications were found";
   cliArgs.onErrorExitCode = cliArgs.onErrorExitCode || -1;
+  cliArgs.gitDir = cliArgs.gitDir || "./.git";
+  cliArgs.diffAgainstReference =
+    cliArgs.diffAgainstReference || "refs/remotes/origin/master";
 
   const patchesFilter = patch => {
     return patch
@@ -29,11 +32,13 @@ const main = () => {
 
   const diffOpts = { contextLines: 0 };
 
-  //return diffCurrentWorkdirWithMaster("./.git")
-  //return diffCurrentHeadWithMaster("./.git")
-  return diffCurrentHeadWithReference("./.git", "refs/heads/master", {
-    diffOpts,
-  })
+  return diffCurrentHeadWithReference(
+    cliArgs.gitDir,
+    cliArgs.diffAgainstReference,
+    {
+      diffOpts,
+    }
+  )
     .then(diff => getChanges(diff, { patchesFilter }))
     .then(data => {
       if (!data.patches || data.patches.length === 0) {
