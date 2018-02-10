@@ -4,6 +4,7 @@ pipeline {
   stages {
     stage("Build") {
       steps {
+        sh "git fetch --all"
         sh "/bin/bash -c '. ~/.bash_profile; env; yarn install'"
       }
     }
