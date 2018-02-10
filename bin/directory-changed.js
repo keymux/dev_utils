@@ -1,29 +1,18 @@
 #!/usr/bin/env node
 
-const util = require("util");
-
 const {
-  diffCurrentHeadWithMaster,
+  diffCurrentHeadWithReference,
   formatPatches,
   getChanges,
 } = require("../lib/git");
 
-const getStackLine = (num, options) => {
-  const line = new Error().stack.split("\n")[num];
-  const colSplit = line.split(":");
+const { print, unhandledPromiseRejectionHandler } = require("../lib/utils");
+print(null);
+print(null);
+print(null);
+print(null);
 
-  return {
-    lineNum: colSplit[colSplit.length - 2],
-    charNum: colSplit[colSplit.length - 1],
-  };
-};
-
-const print = ele => {
-  console.log(
-    getStackLine(3).lineNum + ":",
-    util.inspect(ele, { colors: true, depth: 3 })
-  );
-};
+process.on("unhandledRejection", unhandledPromiseRejectionHandler);
 
 const main = () => {
   const patchesFilter = patch => {
@@ -33,8 +22,13 @@ const main = () => {
       .startsWith(".changes");
   };
 
+  const diffOpts = { contextLines: 0 };
+
   //return diffCurrentWorkdirWithMaster("./.git")
-  return diffCurrentHeadWithMaster("./.git")
+  //return diffCurrentHeadWithMaster("./.git")
+  return diffCurrentHeadWithReference("./.git", "refs/heads/master", {
+    diffOpts,
+  })
     .then(diff => getChanges(diff, { patchesFilter }))
     .then(data => {
       if (!data.patches || data.patches.length === 0) {
@@ -42,6 +36,7 @@ const main = () => {
 
         throw new Error("No changes were found");
       }
+
       console.log(formatPatches(data.patches, { bitbucketComment: true }));
     });
 };
@@ -51,5 +46,5 @@ main()
   .catch(err => {
     print(err);
 
-    process.exit(-1);
+    //process.exit(-1);
   });

@@ -4,12 +4,12 @@ pipeline {
   stages {
     stage("Build") {
       steps {
-        sh "/bin/bash -c '. ~/.bash_profile; yarn install'"
+        sh "/bin/bash -c '. ~/.bash_profile; env; yarn install'"
       }
     }
     stage('Test') {
       steps {
-        sh "/bin/bash -c '. ~/.bash_profile; yarn test'"
+        sh "/bin/bash -c '. ~/.bash_profile; env; yarn test'"
       }
     }
   }
