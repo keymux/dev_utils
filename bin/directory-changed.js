@@ -7,10 +7,6 @@ const {
 } = require("../lib/git");
 
 const { print, unhandledPromiseRejectionHandler } = require("../lib/utils");
-print(null);
-print(null);
-print(null);
-print(null);
 
 process.on("unhandledRejection", unhandledPromiseRejectionHandler);
 
