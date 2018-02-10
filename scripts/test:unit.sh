@@ -7,5 +7,8 @@ ROOT_DIR="${SCRIPTS_DIR}/.."
 REPORTS_DIR="${ROOT_DIR}/reports/unit"
 TEST_DIR="${ROOT_DIR}/test/unit"
 
+# Make sure locally we fetch --all also
+git fetch --all
+
 MASTER_REFERENCE="refs/remotes/origin/master" \
   mocha --reporter mochawesome test/unit/**/*.js --reporter-options reportDir="${REPORTS_DIR}"
