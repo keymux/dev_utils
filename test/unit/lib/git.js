@@ -11,6 +11,8 @@ const { expect } = require("chai");
 const { Commit, Diff, Oid, Reference, Repository, Tree } = require("nodegit");
 
 describe("lib/git", () => {
+  const masterReference = process.env.MASTER_REFERENCE;
+
   describe("getRepo", () => {
     let repoPromise;
 
@@ -57,7 +59,7 @@ describe("lib/git", () => {
     describe("getReference", () => {
       it("should resolve with a Reference object", () => {
         return repoPromise
-          .then(data => git.getReference(data.repo, "refs/heads/master"))
+          .then(data => git.getReference(data.repo, masterReference))
           .then(masterReference => {
             expect(masterReference instanceof Reference).to.be.true;
           });
@@ -67,7 +69,7 @@ describe("lib/git", () => {
     describe("getReferenceTarget", () => {
       it("should resolve with an Oid object", () => {
         return repoPromise
-          .then(data => git.getReferenceTarget(data.repo, "refs/heads/master"))
+          .then(data => git.getReferenceTarget(data.repo, masterReference))
           .then(masterTarget => {
             expect(masterTarget instanceof Oid).to.be.true;
           });
@@ -77,7 +79,7 @@ describe("lib/git", () => {
     describe("getReferenceCommit", () => {
       it("should resolve with a Commit object", () => {
         return repoPromise
-          .then(data => git.getReferenceCommit(data.repo, "refs/heads/master"))
+          .then(data => git.getReferenceCommit(data.repo, masterReference))
           .then(masterCommit => {
             expect(masterCommit instanceof Commit).to.be.true;
           });
@@ -87,7 +89,7 @@ describe("lib/git", () => {
     describe("getReferenceTree", () => {
       it("should resolve with a Tree object", () => {
         return repoPromise
-          .then(data => git.getReferenceTree(data.repo, "refs/heads/master"))
+          .then(data => git.getReferenceTree(data.repo, masterReference))
           .then(print)
           .then(masterTree => {
             expect(masterTree instanceof Tree).to.be.true;
