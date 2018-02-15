@@ -10,8 +10,8 @@ pipeline {
     stage('Test') {
       steps {
         parallel (
-          unitTests: { sh "/bin/bash -c '. ~/.bash_profile; env; yarn test:unit'" }
-          integrationTests: { sh "/bin/bash -c '. ~/.bash_profile; env; yarn test:integration'" }
+          unitTests: { sh "/bin/bash -c '. ~/.bash_profile; env; yarn test:unit'" },
+          integrationTests: { sh "/bin/bash -c '. ~/.bash_profile; env; yarn test:integration'" },
           changelog: { sh "/bin/bash -c '. ~/.bash_profile; env; yarn test:changelog'" }
         )
       }
