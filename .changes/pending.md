@@ -1,3 +1,4 @@
 ## pending
 
-  * Example
+Feature:
+  * DEV-1: Added bitbucket comment generation for changelogs
