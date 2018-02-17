@@ -9,7 +9,7 @@ const utils = require(path.join(libPath, "utils"));
 const { expect } = require("chai");
 const { Commit, Diff, Oid, Reference, Repository, Tree } = require("nodegit");
 
-describe("lib/utils", () => {
+describe("utils", () => {
   const checkLine = line => {
     expect(line.func).to.be.a("string");
     expect(line.filename).to.be.a("string");
