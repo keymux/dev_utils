@@ -8,7 +8,7 @@
     "directory-changed": "bin/directory-changed.js"
   },
   "scripts": {
-    "test:changelog": "bin/directory-changed.js .changes",
+    "test:changelog": "scripts/test:changelog.sh",
     "test:integration": "scripts/test:integration.sh",
     "test:unit": "scripts/test:unit.sh"
   },
