@@ -1,10 +1,9 @@
 #!/usr/bin/env node
 
-const {
-  diffCurrentHeadWithReference,
-  formatPatches,
-  getChanges,
-} = require("../lib/git");
+const { diffCurrentHeadWithReference, getChanges } = require("../lib/git");
+
+const bitbucket = require("../lib/formatting/diff/bitbucket");
+const github = require("../lib/formatting/diff/github");
 
 const { print, unhandledPromiseRejectionHandler } = require("../lib/utils");
 
@@ -14,6 +13,15 @@ const parseArgs = require("minimist");
 
 const cliArgs = parseArgs(process.argv.slice(2));
 
+const DIFF_FORMAT_ENGINES = [
+  {
+    bitbucket: bitbucket.formatPatchesForComment,
+  },
+  {
+    github: github.formatPatchesForComment,
+  },
+];
+
 const main = () => {
   cliArgs.startsWith = cliArgs.startsWith || ".changes";
   cliArgs.noChangeMessage =
@@ -22,6 +30,7 @@ const main = () => {
   cliArgs.gitDir = cliArgs.gitDir || "./.git";
   cliArgs.diffAgainstReference =
     cliArgs.diffAgainstReference || "refs/remotes/origin/master";
+  cliArgs.diffFormatEngine = cliArgs.diffFormatEngine || "github";
 
   const patchesFilter = patch => {
     return patch
