@@ -3,4 +3,4 @@
 bin/directory-changed.js \
   --gitDir=.git \
   --startsWith=.changes \
-  --diffAgainstReference=${ghprbTargetBranch}
+  --diffAgainstReference="origin/${ghprbTargetBranch}"
