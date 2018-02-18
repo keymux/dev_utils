@@ -23,7 +23,11 @@ pipeline {
       steps {
         echo "Hello world before comment"
         script {
-          def comment = pullRequest.comment(new File('reports/changelog').text)
+          println "Hello, world!1"
+          def text = new File('reports/changelog').text
+          println "Hello, world!2"
+          def comment = pullRequest.comment(text)
+          println "Hello, world!3"
         }
         echo "Hello world after comment"
       }
