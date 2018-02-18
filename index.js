@@ -3,6 +3,7 @@ const { diffCurrentHeadWithReference, getChanges } = require("./lib/git");
 
 const bitbucket = require("./lib/formatting/diff/bitbucket");
 const github = require("./lib/formatting/diff/github");
+const mochawesome = require("./lib/mochawesome");
 
 const SUCCESS_EXIT_CODE = 0;
 
@@ -59,5 +60,6 @@ module.exports = {
   // Provides simple APIs to the most high level utilities
   simple: {
     diff,
+    mochawesome,
   },
 };
