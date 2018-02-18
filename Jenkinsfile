@@ -5,11 +5,11 @@ pipeline {
     stage("Build") {
       steps {
         sh "/bin/bash -c '. ~/.bash_profile; env; yarn install'"
+        sh "mkdir -p reports"
       }
     }
     stage('Test') {
       steps {
-        sh "mkdir -p reports"
         parallel (
           unitTests: { sh "/bin/bash -c '. ~/.bash_profile; env; yarn test:unit'" },
           integrationTests: { sh "/bin/bash -c '. ~/.bash_profile; env; yarn test:integration'" },
