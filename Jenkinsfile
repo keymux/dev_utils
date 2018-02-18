@@ -21,9 +21,11 @@ pipeline {
     }
     stage('Comment on PR') {
       steps {
+        echo "Hello world before comment"
         script {
           def comment = pullRequest.comment(new File('reports/changelog').text)
         }
+        echo "Hello world after comment"
       }
     }
   }
