@@ -24,7 +24,7 @@ pipeline {
         echo "Hello world before comment"
         script {
           println "Hello, world!1"
-          def text = new File('reports/changelog').text
+          def text = new File(env['WORKSPACE'] + '/reports/changelog').text
           println "Hello, world!2"
           def comment = pullRequest.comment(text)
           println "Hello, world!3"
