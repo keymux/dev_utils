@@ -19,12 +19,5 @@ pipeline {
         )
       }
     }
-    stage('Comment on PR') {
-      steps {
-        echo "Hello world before comment"
-        commentFilePath("reports/changelog")
-        echo "Hello world after comment"
-      }
-    }
   }
 }
