@@ -5,7 +5,7 @@ SCRIPTS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd -P )"
 SCRIPTS_DIR="${SCRIPTS_DIR:?}"
 ROOT_DIR=$(realpath "${SCRIPTS_DIR}/..")
 REPORTS_DIR="${ROOT_DIR}/reports"
-CHANGELOG_OUTPUT_FILE="${REPORTS_DIR}/githubCommentFile"
+GITHUB_REPORT_FILE="${REPORTS_DIR}/githubCommentFile"
 
 if [ -z "${ghprbTargetBranch}" ]; then
   if [ -z "$1" ]; then
@@ -17,10 +17,10 @@ if [ -z "${ghprbTargetBranch}" ]; then
   fi
 fi
 
-echo "## Changelog" | tee -a "${CHANGELOG_OUTPUT_FILE}"
+echo "## Changelog" | tee -a "${GITHUB_REPORT_FILE}"
 
 bin/directory-changed.js \
   --gitDir=.git \
   --startsWith=.changes \
   --diffAgainstReference="origin/${ghprbTargetBranch}" \
-  | tee -a "${CHANGELOG_OUTPUT_FILE}"
+  | tee -a "${GITHUB_REPORT_FILE}"
