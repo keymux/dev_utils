@@ -5,6 +5,7 @@ pipeline {
     stage("Build PR") {
       steps {
         sh "/bin/bash -c '. ~/.bash_profile; env; yarn install'"
+        sh "rm -rf reports"
         sh "mkdir -p reports"
       }
     }
@@ -14,7 +15,7 @@ pipeline {
           unitTests: { sh "/bin/bash -c '. ~/.bash_profile; env; yarn test:unit'" },
           integrationTests: { sh "/bin/bash -c '. ~/.bash_profile; env; yarn test:integration'" },
           changelog: {
-            sh "/bin/bash -c '. ~/.bash_profile; env; yarn test:changelog | tee reports/changelog'"
+            sh "/bin/bash -c '. ~/.bash_profile; env; yarn test:changelog'"
           }
         )
       }
