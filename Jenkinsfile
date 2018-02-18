@@ -15,7 +15,7 @@ pipeline {
           integrationTests: { sh "/bin/bash -c '. ~/.bash_profile; env; yarn test:integration'" },
           changelog: {
             sh "/bin/bash -c '. ~/.bash_profile; env; yarn test:changelog | tee reports/changelog'"
-            def comment = pullRequest.comment(new File('reports/changelog').text)
+            pullRequest.comment(new File('reports/changelog').text)
           }
         )
       }
