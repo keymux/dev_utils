@@ -6,25 +6,25 @@ SCRIPTS_DIR="${SCRIPTS_DIR:?}"
 ROOT_DIR=$(realpath "${SCRIPTS_DIR}/..")
 REPORTS_DIR="${ROOT_DIR}/reports"
 UNIT_REPORTS_DIR="${REPORTS_DIR}/unit"
-TEST_DIR="${ROOT_DIR}/test/unit"
 GITHUB_REPORT_FILE="${REPORTS_DIR}/githubCommentFile"
 
 export MASTER_REFERENCE="refs/remotes/origin/master"
 export ROOT_DIR
 
-echo -ne "## Unit Test Metrics\n\n" | tee -a "${GITHUB_REPORT_FILE}"
+echo -ne "## Unit Test Coverage\n\n" | tee -a "${GITHUB_REPORT_FILE}"
 
-yarn mocha \
-  --reporter mochawesome \
-  --reporter-options reportDir="${UNIT_REPORTS_DIR}" \
-  test/unit/index.js
-MOCHA_RESULT=$?
+yarn nyc \
+  --reporter=lcov \
+  --reporter=json-summary \
+  --report-dir=${UNIT_REPORTS_DIR}/coverage \
+  mocha test/unit/index.js
 
-"${ROOT_DIR}/bin/mochawesome-markdown.js" \
-  --mochawesome_json="${UNIT_REPORTS_DIR}/mochawesome.json" \
-  --footer="[Jenkins Build](${RUN_DISPLAY_URL})" \
+NYC_RESULT=$?
+
+bin/nyc-markdown.js \
+  --coverage_filename reports/unit/coverage/coverage-summary.json \
   | tee -a "${GITHUB_REPORT_FILE}"
 
 echo -ne "\n\n" | tee -a "${GITHUB_REPORT_FILE}"
 
-exit ${MOCHA_RESULT}
+exit ${NYC_RESULT}

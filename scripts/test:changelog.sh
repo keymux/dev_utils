@@ -17,10 +17,16 @@ if [ -z "${ghprbTargetBranch}" ]; then
   fi
 fi
 
-echo "## Changelog" | tee -a "${GITHUB_REPORT_FILE}"
+echo -ne "## Changelog\n\n" | tee -a "${GITHUB_REPORT_FILE}"
 
 bin/directory-changed.js \
   --gitDir=.git \
   --startsWith=.changes \
   --diffAgainstReference="origin/${ghprbTargetBranch}" \
   | tee -a "${GITHUB_REPORT_FILE}"
+
+DIR_CHNG_RESULT=$?
+
+echo -ne "\n\n" | tee -a "${GITHUB_REPORT_FILE}"
+
+exit ${DIR_CHNG_RESULT}
