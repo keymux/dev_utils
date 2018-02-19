@@ -3,6 +3,8 @@ const { diffCurrentHeadWithReference, getChanges } = require("./lib/git");
 
 const bitbucket = require("./lib/formatting/diff/bitbucket");
 const github = require("./lib/formatting/diff/github");
+
+const nyc = require("./lib/nyc");
 const mochawesome = require("./lib/mochawesome");
 
 const SUCCESS_EXIT_CODE = 0;
@@ -46,11 +48,13 @@ const diff = userOptions => {
     .then(data => {
       if (!data.patches || data.patches.length === 0) {
         console.log(options.noChangeMessage);
+        console.log();
 
         return options.noChangeExitCode;
       }
 
       console.log(formatPatches(data.patches));
+      console.log();
 
       return SUCCESS_EXIT_CODE;
     });
@@ -60,6 +64,7 @@ module.exports = {
   // Provides simple APIs to the most high level utilities
   simple: {
     diff,
+    nyc,
     mochawesome,
   },
 };

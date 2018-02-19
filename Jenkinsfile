@@ -9,15 +9,19 @@ pipeline {
         sh "mkdir -p reports"
       }
     }
-    stage('Test PR') {
+    stage("Test PR") {
       steps {
         parallel (
-          unitTests: { sh "/bin/bash -c '. ~/.bash_profile; env; yarn test:unit'" },
-          integrationTests: { sh "/bin/bash -c '. ~/.bash_profile; env; yarn test:integration'" },
-          changelog: {
-            sh "/bin/bash -c '. ~/.bash_profile; env; yarn test:changelog'"
-          }
+          unitTests: { sh "/bin/bash -c '. ~/.bash_profile; yarn test:unit'" },
+          integrationTests: { sh "/bin/bash -c '. ~/.bash_profile; yarn test:integration'" },
+          changelog: { sh "/bin/bash -c '. ~/.bash_profile; yarn test:changelog'" },
+          coverage: { sh "/bin/bash -c '. ~/.bash_profile; yarn test:coverage'" }
         )
+      }
+    }
+    stage("Test Summary") {
+      steps {
+        sh "/bin/bash -c '. ~/.bash_profile; yarn test:summary'"
       }
     }
   }
