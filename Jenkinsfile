@@ -28,7 +28,7 @@ pipeline {
           keepAll: true,
           reportDir: 'reports/unit',
           reportFiles: 'mochawesome.html',
-          reportName: 'Unit Testing Metrics'
+          reportName: 'Unit Testing Metrics',
           reportTitles: 'Unit Testing Metrics'
         ])
         publishHTML([
