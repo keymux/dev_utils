@@ -11,7 +11,8 @@
     "test:changelog": "scripts/test:changelog.sh",
     "test:coverage": "scripts/test:coverage.sh",
     "test:integration": "scripts/test:integration.sh",
-    "test:unit": "scripts/test:unit.sh"
+    "test:unit": "scripts/test:unit.sh",
+    "test:summary": "scripts/test:summary.sh"
   },
   "dependencies": {
     "nodegit": "^0.20.3"

@@ -5,7 +5,7 @@ SCRIPTS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd -P )"
 SCRIPTS_DIR="${SCRIPTS_DIR:?}"
 ROOT_DIR=$(realpath "${SCRIPTS_DIR}/..")
 REPORTS_DIR="${ROOT_DIR}/reports"
-GITHUB_REPORT_FILE="${REPORTS_DIR}/githubCommentFile"
+GITHUB_REPORT_FILE="${REPORTS_DIR}/changelog.githubCommentFile"
 
 if [ -z "${ghprbTargetBranch}" ]; then
   if [ -z "$1" ]; then

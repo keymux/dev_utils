@@ -7,6 +7,12 @@ ROOT_DIR=$(realpath "${SCRIPTS_DIR}/..")
 REPORTS_DIR="${ROOT_DIR}/reports"
 UNIT_REPORTS_DIR="${REPORTS_DIR}/unit"
 TEST_DIR="${ROOT_DIR}/test/unit"
-GITHUB_REPORT_FILE="${REPORTS_DIR}/integration.githubCommentFile"
+GITHUB_REPORT_FILE="${REPORTS_DIR}/githubCommentFile"
 
-echo "TODO: Integration tests"
+GITHUB_REPORT_FILES=("${REPORTS_DIR}/unit.githubCommentFile" "${REPORTS_DIR}/coverage.githubCommentFile" "${REPORTS_DIR}/changelog.githubCommentFile")
+
+rm "${GITHUB_REPORT_FILE}"
+
+for file in ${GITHUB_REPORT_FILES[@]}; do
+  cat "${file}" >> "${GITHUB_REPORT_FILE}"
+done

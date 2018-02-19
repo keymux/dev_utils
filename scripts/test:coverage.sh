@@ -6,7 +6,7 @@ SCRIPTS_DIR="${SCRIPTS_DIR:?}"
 ROOT_DIR=$(realpath "${SCRIPTS_DIR}/..")
 REPORTS_DIR="${ROOT_DIR}/reports"
 UNIT_REPORTS_DIR="${REPORTS_DIR}/unit"
-GITHUB_REPORT_FILE="${REPORTS_DIR}/githubCommentFile"
+GITHUB_REPORT_FILE="${REPORTS_DIR}/coverage.githubCommentFile"
 
 export MASTER_REFERENCE="refs/remotes/origin/master"
 export ROOT_DIR
