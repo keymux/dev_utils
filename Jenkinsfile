@@ -14,9 +14,8 @@ pipeline {
         parallel (
           unitTests: { sh "/bin/bash -c '. ~/.bash_profile; yarn test:unit'" },
           integrationTests: { sh "/bin/bash -c '. ~/.bash_profile; yarn test:integration'" },
-          changelog: {
-            sh "/bin/bash -c '. ~/.bash_profile; yarn test:changelog'"
-          }
+          changelog: { sh "/bin/bash -c '. ~/.bash_profile; yarn test:changelog'" },
+          coverage: { sh "/bin/bash -c '. ~/.bash_profile; yarn test:coverage'" }
         )
       }
     }
