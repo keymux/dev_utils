@@ -3,13 +3,15 @@ pipeline {
 
   stages {
     stage("build") {
-      parallel (
-        "install": {
-          sh "/bin/bash -c '. ~/.bash_profile; env; yarn install'"
-          sh "rm -rf reports"
-          sh "mkdir -p reports"
-        }
-      )
+      steps {
+        parallel (
+          "install": {
+            sh "/bin/bash -c '. ~/.bash_profile; env; yarn install'"
+            sh "rm -rf reports"
+            sh "mkdir -p reports"
+          }
+        )
+      }
     }
     stage("test") {
       steps {
