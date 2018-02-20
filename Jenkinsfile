@@ -2,24 +2,24 @@ pipeline {
   agent any
 
   stages {
-    stage("Build PR") {
+    stage("build") {
       steps {
         sh "/bin/bash -c '. ~/.bash_profile; env; yarn install'"
         sh "rm -rf reports"
         sh "mkdir -p reports"
       }
     }
-    stage("Test PR") {
+    stage("test") {
       steps {
         parallel (
-          unitTests: { sh "/bin/bash -c '. ~/.bash_profile; yarn test:unit'" },
-          integrationTests: { sh "/bin/bash -c '. ~/.bash_profile; yarn test:integration'" },
-          changelog: { sh "/bin/bash -c '. ~/.bash_profile; yarn test:changelog'" },
-          coverage: { sh "/bin/bash -c '. ~/.bash_profile; yarn test:coverage'" }
+          "test:unit": { sh "/bin/bash -c '. ~/.bash_profile; yarn test:unit'" },
+          "test:integration": { sh "/bin/bash -c '. ~/.bash_profile; yarn test:integration'" },
+          "test:changelog": { sh "/bin/bash -c '. ~/.bash_profile; yarn test:changelog'" },
+          "test:coverage": { sh "/bin/bash -c '. ~/.bash_profile; yarn test:coverage'" }
         )
       }
     }
-    stage("Test Summary") {
+    stage("test:summary") {
       steps {
         sh "/bin/bash -c '. ~/.bash_profile; yarn test:summary'"
         publishHTML([
