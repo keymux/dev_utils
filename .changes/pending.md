@@ -9,3 +9,5 @@ Feature:
   * DEV-13: Archive HTML reports
   * DEV-3: Updated the README, fixed a few issues that would have made documentation more difficult
   * DEV-3: Added support for dev and master build jobs
+  * DEV-3: Added badges
+  * DEV-3: Make it so that test:summary can't fail
