@@ -1,5 +1,15 @@
 # Keymux Dev Utils
 
+## Build Status
+
+### Master Branch
+
+[![Build Status](https://jenkins.keymux.org/job/keymux/job/dev_utils/job/BuildMasterBranch/badge/icon)](https://jenkins.keymux.org/job/keymux/job/dev_utils/job/BuildMasterBranch/)
+
+### Dev Branch
+
+[![Build Status](https://jenkins.keymux.org/job/keymux/job/dev_utils/job/BuildDevBranch/badge/icon)](https://jenkins.keymux.org/job/keymux/job/dev_utils/job/BuildDevBranch/)
+
 ## Dependencies
 
 ### Ubuntu
