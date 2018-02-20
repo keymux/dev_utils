@@ -3,6 +3,7 @@
 ## Build Status
 
 Master: [![Build Status](https://jenkins.keymux.org/job/keymux/job/dev_utils/job/BuildMasterBranch/badge/icon)](https://jenkins.keymux.org/job/keymux/job/dev_utils/job/BuildMasterBranch/)
+
 Dev: [![Build Status](https://jenkins.keymux.org/job/keymux/job/dev_utils/job/BuildDevBranch/badge/icon)](https://jenkins.keymux.org/job/keymux/job/dev_utils/job/BuildDevBranch/)
 
 ## Dependencies
