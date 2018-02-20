@@ -8,3 +8,4 @@ Feature:
   * DEV-10: Added code coverage
   * DEV-13: Archive HTML reports
   * DEV-3: Updated the README, fixed a few issues that would have made documentation more difficult
+  * DEV-3: Added support for dev and master build jobs

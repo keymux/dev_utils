@@ -20,11 +20,17 @@ yarn mocha \
   test/unit/index.js
 MOCHA_RESULT=$?
 
-"${ROOT_DIR}/bin/mochawesome-markdown.js" \
+MD=$("${ROOT_DIR}/bin/mochawesome-markdown.js" \
   --mochawesome_json="${UNIT_REPORTS_DIR}/mochawesome.json" \
-  --footer="[Jenkins Build](${RUN_DISPLAY_URL})" \
+  --footer="[Jenkins Build](${RUN_DISPLAY_URL})")
+
+MD_RESULT=$?
+
+echo -ne "${MD}\n\n" \
   | tee -a "${GITHUB_REPORT_FILE}"
 
-echo -ne "\n\n" | tee -a "${GITHUB_REPORT_FILE}"
-
-exit ${MOCHA_RESULT}
+if [ ${MOCHA_RESULT} -ne 0 ]; then
+  exit ${MOCHA_RESULT}
+else
+  exit ${MD_RESULT}
+fi

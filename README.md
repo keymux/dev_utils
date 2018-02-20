@@ -109,7 +109,7 @@ The `nyc-markdown` utility is intended to provide a portable way to convert nyc/
 name                  | Required  | Default                                   | Explanation
 --------------------- | --------- | ----------------------------------------- | -----------------
 coverage_filename     | yes       |                                           | The full path to the coverage-summary.json file
-tableHeader           | no        | Passed,Failed,Skipped,Total,Percent       | The header row of the table`*`
+tableHeader           | no        | Type,Covered,Skipped,Total,Percent        | The header row of the table`*`
 pre                   | no        | `"","*__","*","",""`                      | Pre-text per data cell, columns delimited by commas
 post                  | no        | `"","__*","*","","%"`                     | Post-text per data cell, columns delimited by commas
 header                | no        |                                           | Text to display above the table

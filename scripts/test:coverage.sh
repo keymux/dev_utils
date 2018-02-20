@@ -21,10 +21,15 @@ yarn nyc \
 
 NYC_RESULT=$?
 
-bin/nyc-markdown.js \
-  --coverage_filename ${UNIT_REPORTS_DIR}/coverage/coverage-summary.json \
-  | tee -a "${GITHUB_REPORT_FILE}"
+MD_OUTPUT=$(bin/nyc-markdown.js \
+  --coverage_filename ${UNIT_REPORTS_DIR}/coverage/coverage-summary.json)
 
-echo -ne "\n\n" | tee -a "${GITHUB_REPORT_FILE}"
+MD_RESULT=$?
 
-exit ${NYC_RESULT}
+echo -ne "MD_OUTPUT\n\n" | tee -a "${GITHUB_REPORT_FILE}"
+
+if [ ${NYC_RESULT} -ne 0 ]; then
+  exit ${NYC_RESULT}
+else
+  exit ${MD_RESULT}
+fi
