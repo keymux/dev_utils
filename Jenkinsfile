@@ -3,11 +3,13 @@ pipeline {
 
   stages {
     stage("build") {
-      steps {
-        sh "/bin/bash -c '. ~/.bash_profile; env; yarn install'"
-        sh "rm -rf reports"
-        sh "mkdir -p reports"
-      }
+      parallel (
+        "install": {
+          sh "/bin/bash -c '. ~/.bash_profile; env; yarn install'"
+          sh "rm -rf reports"
+          sh "mkdir -p reports"
+        }
+      )
     }
     stage("test") {
       steps {
@@ -45,6 +47,7 @@ pipeline {
               reportTitles: 'Unit Testing Coverage Metrics'
             ])
           }
+        )
       }
     }
   }
