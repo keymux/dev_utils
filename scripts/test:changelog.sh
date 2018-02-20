@@ -28,18 +28,18 @@ fi
 
 echo -ne "## Changelog\n\n" | tee -a "${GITHUB_REPORT_FILE}"
 
-bin/directory-changed.js \
+MD=$(bin/directory-changed.js \
   --gitDir=.git \
   ${noChangeExitCodeArg} \
   --startsWith=.changes \
-  --diffAgainstReference="origin/${ghprbTargetBranch}" \
+  --diffAgainstReference="origin/${ghprbTargetBranch}")
+
+MD_RESULT=$?
+
+echo -ne "${MD}\n\n" \
   | tee -a "${GITHUB_REPORT_FILE}"
-
-DIR_CHNG_RESULT=$?
-
-echo -ne "\n\n" | tee -a "${GITHUB_REPORT_FILE}"
 
 # A terrible hack since noChangeExitCode is broken (#15)
 if [ -z "${noChangeExitCode}" ]; then
-  exit ${DIR_CHNG_RESULT}
+  exit ${MD_RESULT}
 fi
