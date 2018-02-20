@@ -9,7 +9,13 @@ const cliArgs = parseArgs(process.argv.slice(2));
 const main = () => {
   const options = Object.assign({}, cliArgs);
 
-  return require("../index.js").simple.diff(options);
+  if (options.mochawesome_json === undefined) {
+    console.log("Must provide --mochawesome_json parameter");
+
+    process.exit(cliArgs.onErrorExitCode || -1);
+  }
+
+  return require("../index.js").simple.mochawesome.statsToMarkdown(options);
 };
 
 if (!module.parent) {

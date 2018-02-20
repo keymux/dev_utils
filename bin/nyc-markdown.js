@@ -9,7 +9,7 @@ const cliArgs = parseArgs(process.argv.slice(2));
 const main = () => {
   const options = Object.assign({}, cliArgs);
 
-  return require("../index.js").simple.diff(options);
+  return require("../index.js").simple.nyc.nycToMarkdown(options);
 };
 
 if (!module.parent) {

@@ -1,5 +1,5 @@
 {
-  "name": "dev_utils",
+  "name": "@keymux/dev_utils",
   "version": "0.1.0",
   "description": "A set of developer and devops utilities for projects",
   "main": "index.js",
@@ -8,9 +8,24 @@
     "directory-changed": "bin/directory-changed.js"
   },
   "scripts": {
-    "directory-changed": "bin/directory-changed.js"
+    "test:changelog": "scripts/test:changelog.sh",
+    "test:coverage": "scripts/test:coverage.sh",
+    "test:integration": "scripts/test:integration.sh",
+    "test:unit": "scripts/test:unit.sh",
+    "test:summary": "scripts/test:summary.sh"
   },
   "dependencies": {
     "nodegit": "^0.20.3"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "istanbul": "^0.4.5",
+    "markdown-preview": "^0.4.2",
+    "minimist": "^1.2.0",
+    "mocha": "^5.0.0",
+    "mocha-istanbul": "^0.3.0",
+    "mocha-multi-reporters": "^1.1.7",
+    "mochawesome": "^3.0.2",
+    "nyc": "^11.4.1"
   }
 }
