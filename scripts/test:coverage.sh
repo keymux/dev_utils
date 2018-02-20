@@ -22,7 +22,7 @@ yarn nyc \
 NYC_RESULT=$?
 
 bin/nyc-markdown.js \
-  --coverage_filename reports/unit/coverage/coverage-summary.json \
+  --coverage_filename ${UNIT_REPORTS_DIR}/coverage/coverage-summary.json \
   | tee -a "${GITHUB_REPORT_FILE}"
 
 echo -ne "\n\n" | tee -a "${GITHUB_REPORT_FILE}"
