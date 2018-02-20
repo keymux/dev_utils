@@ -23,7 +23,7 @@ pipeline {
         )
       }
     }
-    stage("test:summary") {
+    stage("metrics") {
       steps {
         parallel (
           "test:summary": { sh "/bin/bash -c '. ~/.bash_profile; yarn test:summary'" },
