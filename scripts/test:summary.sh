@@ -16,3 +16,6 @@ rm "${GITHUB_REPORT_FILE}"
 for file in ${GITHUB_REPORT_FILES[@]}; do
   cat "${file}" >> "${GITHUB_REPORT_FILE}"
 done
+
+# Ignore if any commands fail
+exit 0
