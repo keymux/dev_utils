@@ -21,25 +21,30 @@ pipeline {
     }
     stage("test:summary") {
       steps {
-        sh "/bin/bash -c '. ~/.bash_profile; yarn test:summary'"
-        publishHTML([
-          allowMissing: false,
-          alwaysLinkToLastBuild: false,
-          keepAll: true,
-          reportDir: 'reports/unit',
-          reportFiles: 'mochawesome.html',
-          reportName: 'Unit Testing Metrics',
-          reportTitles: 'Unit Testing Metrics'
-        ])
-        publishHTML([
-          allowMissing: false,
-          alwaysLinkToLastBuild: false,
-          keepAll: true,
-          reportDir: 'reports/unit/coverage/lcov-report',
-          reportFiles: 'index.html',
-          reportName: 'Unit Testing Coverage Metrics',
-          reportTitles: 'Unit Testing Coverage Metrics'
-        ])
+        parallel (
+          "test:summary": { sh "/bin/bash -c '. ~/.bash_profile; yarn test:summary'" },
+          "test:unit:metrics": {
+            publishHTML([
+              allowMissing: false,
+              alwaysLinkToLastBuild: false,
+              keepAll: true,
+              reportDir: 'reports/unit',
+              reportFiles: 'mochawesome.html',
+              reportName: 'Unit Testing Metrics',
+              reportTitles: 'Unit Testing Metrics'
+            ])
+          },
+          "test::coverage:metrics": {
+            publishHTML([
+              allowMissing: false,
+              alwaysLinkToLastBuild: false,
+              keepAll: true,
+              reportDir: 'reports/unit/coverage/lcov-report',
+              reportFiles: 'index.html',
+              reportName: 'Unit Testing Coverage Metrics',
+              reportTitles: 'Unit Testing Coverage Metrics'
+            ])
+          }
       }
     }
   }
