@@ -6,6 +6,7 @@ SCRIPTS_DIR="${SCRIPTS_DIR:?}"
 ROOT_DIR=$(realpath "${SCRIPTS_DIR}/..")
 REPORTS_DIR="${ROOT_DIR}/reports"
 GITHUB_REPORT_FILE="${REPORTS_DIR}/lint.githubCommentFile"
+FORMATTER="${ROOT_DIR}/node_modules/eslint-formatter-markdown/markdown.js"
 
 if [ -z "${ghprbTargetBranch}" ]; then
   if [ -z "$1" ]; then
@@ -17,16 +18,15 @@ if [ -z "${ghprbTargetBranch}" ]; then
   fi
 fi
 
-echo -ne "## Changelog\n\n" | tee -a "${GITHUB_REPORT_FILE}"
+echo -ne "## Linter\n\n" | tee -a "${GITHUB_REPORT_FILE}"
 
 yarn eslint \
   --ignore-path .gitignore \
-  "${ROOT_DIR}/**/*.js" \
-  "${ROOT_DIR}/test/**/*.js" \
-  | tee -a "${GITHUB_REPORT_FILE}"
+  --format "${FORMATTER}" \
+  "${ROOT_DIR}/**/*.js" | tee -a
 
-ESLINT_RESULT=$?
+ESLINT_RESULT=${PIPESTATUS[0]}
 
 echo -ne "\n\n" | tee -a "${GITHUB_REPORT_FILE}"
 
-exit ${DIR_CHNG_RESULT}
+exit ${ESLINT_RESULT}

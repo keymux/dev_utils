@@ -5,21 +5,20 @@ pipeline {
     stage("build") {
       steps {
         parallel (
-          "install": {
-            sh "/bin/bash -c '. ~/.bash_profile; env; yarn install'"
-            sh "rm -rf reports"
-            sh "mkdir -p reports"
-          }
+          "clean": { sh "/bin/bash -c '. ~/.bash_profile; yarn clean'" },
+          "env": { sh "/bin/bash -c 'env'" },
+          "install": { sh "/bin/bash -c '. ~/.bash_profile; yarn install'" }
         )
       }
     }
     stage("test") {
       steps {
         parallel (
-          "test:unit": { sh "/bin/bash -c '. ~/.bash_profile; yarn test:unit'" },
-          "test:integration": { sh "/bin/bash -c '. ~/.bash_profile; yarn test:integration'" },
           "test:changelog": { sh "/bin/bash -c '. ~/.bash_profile; yarn test:changelog'" },
-          "test:coverage": { sh "/bin/bash -c '. ~/.bash_profile; yarn test:coverage'" }
+          "test:coverage": { sh "/bin/bash -c '. ~/.bash_profile; yarn test:coverage'" },
+          "test:integration": { sh "/bin/bash -c '. ~/.bash_profile; yarn test:integration'" },
+          "test:lint": { sh "/bin/bash -c '. ~/.bash_profile; yarn test:lint'" },
+          "test:unit": { sh "/bin/bash -c '. ~/.bash_profile; yarn test:unit'" }
         )
       }
     }
@@ -49,6 +48,17 @@ pipeline {
               reportTitles: 'Unit Testing Coverage Metrics'
             ])
           }
+        )
+      }
+    }
+    stage("resolve") {
+      steps {
+        parallel (
+          "test:changelog": { sh "/bin/bash -c '. ~/.bash_profile; yarn test:resolve changelog'" },
+          "test:coverage": { sh "/bin/bash -c '. ~/.bash_profile; yarn test:resolve coverage'" },
+          "test:integration": { sh "/bin/bash -c '. ~/.bash_profile; yarn test:resolve integration'" },
+          "test:lint": { sh "/bin/bash -c '. ~/.bash_profile; yarn test:resolve lint'" },
+          "test:unit": { sh "/bin/bash -c '. ~/.bash_profile; yarn test:resolve unit'" }
         )
       }
     }
