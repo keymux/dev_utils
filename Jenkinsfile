@@ -54,11 +54,11 @@ pipeline {
     stage("resolve") {
       steps {
         parallel (
-          "test:changelog": { sh "/bin/bash -c '. ~/.bash_profile; yarn test:resolve changelog'" },
-          "test:coverage": { sh "/bin/bash -c '. ~/.bash_profile; yarn test:resolve coverage'" },
-          "test:integration": { sh "/bin/bash -c '. ~/.bash_profile; yarn test:resolve integration'" },
-          "test:lint": { sh "/bin/bash -c '. ~/.bash_profile; yarn test:resolve lint'" },
-          "test:unit": { sh "/bin/bash -c '. ~/.bash_profile; yarn test:resolve unit'" }
+          "test:changelog": { sh "/bin/bash -c '. ~/.bash_profile; yarn resolve changelog'" },
+          "test:coverage": { sh "/bin/bash -c '. ~/.bash_profile; yarn resolve coverage'" },
+          "test:integration": { sh "/bin/bash -c '. ~/.bash_profile; yarn resolve integration'" },
+          "test:lint": { sh "/bin/bash -c '. ~/.bash_profile; yarn resolve lint'" },
+          "test:unit": { sh "/bin/bash -c '. ~/.bash_profile; yarn resolve unit'" }
         )
       }
     }
