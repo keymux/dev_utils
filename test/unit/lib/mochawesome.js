@@ -6,12 +6,12 @@ const libDir = "lib";
 
 const util = require(path.join(root, testDir, libDir, "util"));
 
-const nyc = require(path.join(root, libDir, "nyc"));
+const mochawesome = require(path.join(root, libDir, "mochawesome"));
 
-describe("nyc", () => {
+describe("mochawesome", () => {
   describe("exports", () => {
-    const expectedExports = ["mapTotalToTable", "nycToMarkdown"];
+    const expectedExports = ["statsToMarkdown"];
 
-    util.expectExports(nyc, expectedExports);
+    util.expectExports(mochawesome, expectedExports);
   });
 });

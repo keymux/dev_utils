@@ -3,7 +3,6 @@ const { expect } = require("chai");
 
 const root = process.env.ROOT_DIR;
 const testDir = "test";
-const unitDir = path.join(testDir, "unit");
 const libPath = "lib";
 
 const util = require(path.join(root, testDir, libPath, "util"));

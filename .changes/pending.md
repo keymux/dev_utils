@@ -11,3 +11,4 @@ Feature:
   * DEV-3: Added support for dev and master build jobs
   * DEV-3: Added badges
   * DEV-3: Make it so that test:summary can't fail
+  * DEV-26: Added linting
