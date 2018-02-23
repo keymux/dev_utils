@@ -681,12 +681,6 @@ eslint-config-prettier@^2.9.0:
   dependencies:
     get-stdin "^5.0.1"
 
-eslint-formatter-markdown@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/eslint-formatter-markdown/-/eslint-formatter-markdown-1.0.4.tgz#394dfa364a93d7a13cf8d1fa95102fa84dc97932"
-  dependencies:
-    lodash "^4.17.4"
-
 eslint-plugin-prettier@^2.6.0:
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-prettier/-/eslint-plugin-prettier-2.6.0.tgz#33e4e228bdb06142d03c560ce04ec23f6c767dd7"
