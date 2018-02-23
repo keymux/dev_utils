@@ -18,6 +18,9 @@ describe("git", () => {
   describe("exports", () => {
     const expectedExports = [
       "diffCurrentHeadWithReference",
+      "diffCurrentHeadWithMaster",
+      "diffCurrentIndexWithMaster",
+      "diffCurrentWorkdirWithMaster",
       "getChanges",
       "getHeadCommit",
       "getHeadTree",
