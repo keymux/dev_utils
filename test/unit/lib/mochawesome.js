@@ -1,5 +1,4 @@
 const path = require("path");
-const { expect } = require("chai");
 
 const root = process.env.ROOT_DIR;
 const testDir = "test";

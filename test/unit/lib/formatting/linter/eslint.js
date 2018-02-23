@@ -12,6 +12,12 @@ const util = require(path.join(root, testDir, libDir, "util"));
 const eslint = require(path.join(root, linterDir, "eslint"));
 
 describe("eslint", () => {
+  describe("exports", () => {
+    const expectedExports = ["fullSummary", "summary", "ruleSummary"];
+
+    util.expectExports(eslint, expectedExports);
+  });
+
   const generateExpectedSummary = (errors, warnings) => {
     return [
       "Type | Count",
@@ -26,12 +32,6 @@ describe("eslint", () => {
 
     return ["Rule | Count", "--- | ---"].concat(lines);
   };
-
-  describe("exports", () => {
-    const expectedExports = ["fullSummary", "summary", "ruleSummary"];
-
-    util.expectExports(eslint, expectedExports);
-  });
 
   describe("zero files", () => {
     const results = [];
@@ -68,7 +68,7 @@ describe("eslint", () => {
       expect(eslint.summary(results)).to.deep.equal(expectedSummary);
       expect(eslint.ruleSummary(results)).to.deep.equal(expectedRuleSummary);
       expect(eslint.fullSummary(results)).to.deep.equal(
-        expectedSummary.concat(["\n", "\n"].concat(expectedRuleSummary))
+        expectedSummary.concat(["\n"].concat(expectedRuleSummary))
       );
     });
   });
@@ -99,7 +99,7 @@ describe("eslint", () => {
       expect(eslint.summary(results)).to.deep.equal(expectedSummary);
       expect(eslint.ruleSummary(results)).to.deep.equal(expectedRuleSummary);
       expect(eslint.fullSummary(results)).to.deep.equal(
-        expectedSummary.concat(["\n", "\n"].concat(expectedRuleSummary))
+        expectedSummary.concat(["\n"].concat(expectedRuleSummary))
       );
     });
   });
@@ -127,7 +127,7 @@ describe("eslint", () => {
       expect(eslint.summary(results)).to.deep.equal(expectedSummary);
       expect(eslint.ruleSummary(results)).to.deep.equal(expectedRuleSummary);
       expect(eslint.fullSummary(results)).to.deep.equal(
-        expectedSummary.concat(["\n", "\n"].concat(expectedRuleSummary))
+        expectedSummary.concat(["\n"].concat(expectedRuleSummary))
       );
     });
   });
@@ -161,7 +161,7 @@ describe("eslint", () => {
       expect(eslint.summary(results)).to.deep.equal(expectedSummary);
       expect(eslint.ruleSummary(results)).to.deep.equal(expectedRuleSummary);
       expect(eslint.fullSummary(results)).to.deep.equal(
-        expectedSummary.concat(["\n", "\n"].concat(expectedRuleSummary))
+        expectedSummary.concat(["\n"].concat(expectedRuleSummary))
       );
     });
   });
@@ -198,7 +198,7 @@ describe("eslint", () => {
       expect(eslint.summary(results)).to.deep.equal(expectedSummary);
       expect(eslint.ruleSummary(results)).to.deep.equal(expectedRuleSummary);
       expect(eslint.fullSummary(results)).to.deep.equal(
-        expectedSummary.concat(["\n", "\n"].concat(expectedRuleSummary))
+        expectedSummary.concat(["\n"].concat(expectedRuleSummary))
       );
     });
   });

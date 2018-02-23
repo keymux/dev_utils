@@ -20,7 +20,7 @@ const main = () => {
 
 if (!module.parent) {
   main()
-    .then(lines => lines.forEach(console.log)) // eslint-disable-line no-console
+    .then(lines => lines.forEach(line => console.log(line))) // eslint-disable-line no-console
     .then(() => process.exit(0))
     .catch(err => {
       print("Unhandled error:");

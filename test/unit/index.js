@@ -5,11 +5,25 @@ const testDir = "test";
 const unitDir = path.join(testDir, "unit");
 const libDir = "lib";
 
+const util = require(path.join(root, testDir, libDir, "util"));
 const util_fs = require(path.join(root, libDir, "util_fs"));
 
-require(path.join(root, libDir, "git"));
+const index = require(path.join(root, "index"));
 
 describe(path.basename(process.env.ROOT_DIR), () => {
+  describe("index", () => {
+    describe("exports", () => {
+      const expectedExports = ["simple"];
+
+      util.expectExports(index, expectedExports);
+    });
+
+    describe("simple", () => {
+      const expectedExports = ["diff", "eslint", "nyc", "mochawesome"];
+      util.expectExports(index.simple, expectedExports);
+    });
+  });
+
   const processItem = item => {
     if (item.directoryContents) {
       const recurse = () => {

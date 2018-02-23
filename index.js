@@ -4,6 +4,7 @@ const { diffCurrentHeadWithReference, getChanges } = require("./lib/git");
 const bitbucket = require("./lib/formatting/diff/bitbucket");
 const github = require("./lib/formatting/diff/github");
 
+const eslint = require("./lib/formatting/linter/eslint");
 const nyc = require("./lib/nyc");
 const mochawesome = require("./lib/mochawesome");
 
@@ -63,6 +64,7 @@ module.exports = {
   // Provides simple APIs to the most high level utilities
   simple: {
     diff,
+    eslint,
     nyc,
     mochawesome,
   },
