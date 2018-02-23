@@ -20,10 +20,10 @@ fi
 
 echo -ne "## Linter\n\n" | tee -a "${GITHUB_REPORT_FILE}"
 
-yarn eslint \
+yarn -s eslint \
   --ignore-path .gitignore \
   --format "${FORMATTER}" \
-  "${ROOT_DIR}/**/*.js" | tee -a
+  "${ROOT_DIR}/**/*.js" 2>&1 | tee -a "${GITHUB_REPORT_FILE}"
 
 ESLINT_RESULT=${PIPESTATUS[0]}
 
