@@ -33,6 +33,27 @@ describe("eslint", () => {
     return ["Rule | Count", "--- | ---"].concat(lines);
   };
 
+  describe("one file, no messages", () => {
+    const results = [
+      {
+        messages: [],
+        errorCount: 0,
+        warningCount: 0,
+      },
+    ];
+
+    const expectedSummary = generateExpectedSummary(0, 0);
+    const expectedRuleSummary = [];
+
+    it("should produce the expected markdown table", () => {
+      expect(eslint.summary(results)).to.deep.equal(expectedSummary);
+      expect(eslint.ruleSummary(results)).to.deep.equal(expectedRuleSummary);
+      expect(eslint.fullSummary(results)).to.deep.equal(
+        expectedSummary.concat(expectedRuleSummary)
+      );
+    });
+  });
+
   describe("zero files", () => {
     const results = [];
 
