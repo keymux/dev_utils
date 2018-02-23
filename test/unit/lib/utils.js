@@ -1,13 +1,11 @@
 const path = require("path");
 
 const rootPath = path.join(__dirname, "../../..");
-const gitPath = path.join(rootPath, ".git");
 const libPath = path.join(rootPath, "lib");
 
 const utils = require(path.join(libPath, "utils"));
 
 const { expect } = require("chai");
-const { Commit, Diff, Oid, Reference, Repository, Tree } = require("nodegit");
 
 describe("utils", () => {
   const checkLine = line => {

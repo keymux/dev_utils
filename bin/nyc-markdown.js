@@ -14,8 +14,8 @@ const main = () => {
 
 if (!module.parent) {
   main()
-    // Exit with the code provided
-    .then(process.exit)
+    .then(lines => lines.forEach(console.log)) // eslint-disable-line no-console
+    .then(() => process.exit(0))
     .catch(err => {
       print("Unhandled error:");
       print(err);

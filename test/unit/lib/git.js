@@ -3,7 +3,6 @@ const { expect } = require("chai");
 
 const root = process.env.ROOT_DIR;
 const testDir = "test";
-const unitDir = path.join(testDir, "unit");
 const libDir = "lib";
 
 const gitPath = path.join(root, ".git");
@@ -12,6 +11,7 @@ const util = require(path.join(root, testDir, libDir, "util"));
 
 const git = require(path.join(root, libDir, "git"));
 
+// eslint-disable-next-line no-unused-vars
 const { Commit, Diff, Oid, Reference, Repository, Tree } = require("nodegit");
 
 describe("git", () => {

@@ -10,7 +10,7 @@ const main = () => {
   const options = Object.assign({}, cliArgs);
 
   if (options.mochawesome_json === undefined) {
-    console.log("Must provide --mochawesome_json parameter");
+    console.log("Must provide --mochawesome_json parameter"); // eslint-disable-line no-console
 
     process.exit(cliArgs.onErrorExitCode || -1);
   }
@@ -20,8 +20,8 @@ const main = () => {
 
 if (!module.parent) {
   main()
-    // Exit with the code provided
-    .then(process.exit)
+    .then(lines => lines.forEach(console.log)) // eslint-disable-line no-console
+    .then(() => process.exit(0))
     .catch(err => {
       print("Unhandled error:");
       print(err);
