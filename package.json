@@ -8,10 +8,14 @@
     "directory-changed": "bin/directory-changed.js"
   },
   "scripts": {
-    "test:changelog": "scripts/test:changelog.sh",
-    "test:coverage": "scripts/test:coverage.sh",
-    "test:integration": "scripts/test:integration.sh",
-    "test:unit": "scripts/test:unit.sh",
+    "clean": "scripts/clean.sh",
+    "resolve": "scripts/resolve.sh",
+    "test": "scripts/test.sh",
+    "test:changelog": "scripts/test:wrapper.sh test:changelog",
+    "test:coverage": "scripts/test:wrapper.sh test:coverage",
+    "test:integration": "scripts/test:wrapper.sh test:integration",
+    "test:lint": "scripts/test:wrapper.sh test:lint",
+    "test:unit": "scripts/test:wrapper.sh test:unit",
     "test:summary": "scripts/test:summary.sh"
   },
   "dependencies": {
@@ -19,6 +23,9 @@
   },
   "devDependencies": {
     "chai": "^4.1.2",
+    "eslint": "^4.18.1",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-prettier": "^2.6.0",
     "istanbul": "^0.4.5",
     "markdown-preview": "^0.4.2",
     "minimist": "^1.2.0",
@@ -26,6 +33,7 @@
     "mocha-istanbul": "^0.3.0",
     "mocha-multi-reporters": "^1.1.7",
     "mochawesome": "^3.0.2",
-    "nyc": "^11.4.1"
+    "nyc": "^11.4.1",
+    "prettier": "^1.10.2"
   }
 }

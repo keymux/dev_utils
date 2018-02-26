@@ -1,5 +1,4 @@
 const path = require("path");
-const { expect } = require("chai");
 
 const root = process.env.ROOT_DIR;
 const testDir = "test";
@@ -9,12 +8,22 @@ const libDir = "lib";
 const util = require(path.join(root, testDir, libDir, "util"));
 const util_fs = require(path.join(root, libDir, "util_fs"));
 
-const { print } = require(path.join(root, libDir, "utils"));
-
-require(path.join(root, libDir, "git"));
-//require(path.join(root, unitDir, libDir, "git"));
+const index = require(path.join(root, "index"));
 
 describe(path.basename(process.env.ROOT_DIR), () => {
+  describe("index", () => {
+    describe("exports", () => {
+      const expectedExports = ["simple"];
+
+      util.expectExports(index, expectedExports);
+    });
+
+    describe("simple", () => {
+      const expectedExports = ["diff", "eslint", "nyc", "mochawesome"];
+      util.expectExports(index.simple, expectedExports);
+    });
+  });
+
   const processItem = item => {
     if (item.directoryContents) {
       const recurse = () => {
@@ -49,14 +58,4 @@ describe(path.basename(process.env.ROOT_DIR), () => {
       directoryContents: [util_fs.findFilesSync(path.join(root, unitDir))],
     },
   ].forEach(processItem);
-  /*
-    .then(print)
-    .then(processItem)
-    .then(print)
-    .catch(err => {
-      print(err);
-
-      process.exit(-1);
-    });
-  */
 });

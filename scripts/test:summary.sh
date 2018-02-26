@@ -9,9 +9,14 @@ UNIT_REPORTS_DIR="${REPORTS_DIR}/unit"
 TEST_DIR="${ROOT_DIR}/test/unit"
 GITHUB_REPORT_FILE="${REPORTS_DIR}/githubCommentFile"
 
-GITHUB_REPORT_FILES=("${REPORTS_DIR}/unit.githubCommentFile" "${REPORTS_DIR}/coverage.githubCommentFile" "${REPORTS_DIR}/changelog.githubCommentFile")
+GITHUB_REPORT_FILES=( \
+  "${REPORTS_DIR}/unit.githubCommentFile" \
+  "${REPORTS_DIR}/coverage.githubCommentFile" \
+  "${REPORTS_DIR}/changelog.githubCommentFile" \
+  "${REPORTS_DIR}/lint.githubCommentFile" \
+  )
 
-rm "${GITHUB_REPORT_FILE}"
+rm -f "${GITHUB_REPORT_FILE}"
 
 for file in ${GITHUB_REPORT_FILES[@]}; do
   cat "${file}" >> "${GITHUB_REPORT_FILE}"

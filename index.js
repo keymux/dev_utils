@@ -4,12 +4,12 @@ const { diffCurrentHeadWithReference, getChanges } = require("./lib/git");
 const bitbucket = require("./lib/formatting/diff/bitbucket");
 const github = require("./lib/formatting/diff/github");
 
+const eslint = require("./lib/formatting/linter/eslint");
 const nyc = require("./lib/nyc");
 const mochawesome = require("./lib/mochawesome");
 
-const SUCCESS_EXIT_CODE = 0;
-
 const diff = userOptions => {
+  const lines = [];
   const options = {};
 
   options.startsWith = userOptions.startsWith || ".changes";
@@ -47,16 +47,16 @@ const diff = userOptions => {
     .then(diff => getChanges(diff, { patchesFilter }))
     .then(data => {
       if (!data.patches || data.patches.length === 0) {
-        console.log(options.noChangeMessage);
-        console.log();
+        lines.push(options.noChangeMessage);
+        lines.push("");
 
         return options.noChangeExitCode;
       }
 
-      console.log(formatPatches(data.patches));
-      console.log();
+      lines.push(formatPatches(data.patches));
+      lines.push("");
 
-      return SUCCESS_EXIT_CODE;
+      return lines;
     });
 };
 
@@ -64,6 +64,7 @@ module.exports = {
   // Provides simple APIs to the most high level utilities
   simple: {
     diff,
+    eslint,
     nyc,
     mochawesome,
   },
