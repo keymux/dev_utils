@@ -25,6 +25,8 @@ const diff = userOptions => {
 
     const diff = spawn("git", [
       "diff",
+      "-U0",
+      "-w",
       userOptions.diffAgainstReference,
       options.startsWith,
     ]);
@@ -48,7 +50,15 @@ const diff = userOptions => {
         });
       } else {
         if (data.length > 0) {
-          const lines = data.join("").split("\n");
+          const lines = ["```diff"]
+            .concat(
+              data
+                .join("")
+                .split("\n")
+                .filter(line => ["-", "+"].includes(line[0]))
+                .slice(1)
+            )
+            .concat(["```"]);
 
           print(lines);
 
