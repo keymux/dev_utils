@@ -60,8 +60,6 @@ const diff = userOptions => {
             )
             .concat(["```"]);
 
-          print(lines);
-
           resolve({ lines, exitCode: 0 });
         } else {
           resolve({
