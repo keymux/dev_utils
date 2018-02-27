@@ -1,6 +1,6 @@
 {
   "name": "@keymux/dev_utils",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A set of developer and devops utilities for projects",
   "main": "index.js",
   "license": "MIT",
