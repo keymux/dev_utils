@@ -1,63 +1,74 @@
 const path = require("path");
-const { diffCurrentHeadWithReference, getChanges } = require("./lib/git");
-
-const bitbucket = require("./lib/formatting/diff/bitbucket");
-const github = require("./lib/formatting/diff/github");
+const { spawn } = require("child_process");
 
 const eslint = require("./lib/formatting/linter/eslint");
 const nyc = require("./lib/nyc");
 const mochawesome = require("./lib/mochawesome");
 
 const diff = userOptions => {
-  const lines = [];
-  const options = {};
+  return new Promise(resolve => {
+    const options = {};
 
-  options.startsWith = userOptions.startsWith || ".changes";
-  options.noChangeMessage =
-    userOptions.noChangeMessage || "No changelog modifications were found";
-  options.noChangeExitCode = userOptions.noChangeExitCode || -1;
-  options.gitDir = path.resolve(userOptions.gitDir || ".git");
-  options.diffAgainstReference =
-    userOptions.diffAgainstReference || "refs/remotes/origin/master";
-  options.diffFormatEngine = userOptions.diffFormatEngine || "github";
+    options.startsWith = userOptions.startsWith || ".changes";
+    options.noChangeMessage =
+      userOptions.noChangeMessage || "No changes were found";
+    options.noChangeExitCode = userOptions.noChangeExitCode || -1;
 
-  const patchesFilter = patch => {
-    return patch
-      .newFile()
-      .path()
-      .startsWith(options.startsWith);
-  };
+    // gitDir isn't used in this implementation
+    options.gitDir = path.resolve(userOptions.gitDir || ".git");
+    options.diffAgainstReference =
+      userOptions.diffAgainstReference || "refs/remotes/origin/master";
 
-  const DIFF_FORMAT_ENGINES = {
-    bitbucket: bitbucket.formatPatchesForComment,
-    github: github.formatPatchesForComment,
-  };
+    // Since we only support bitbucket and github anyway, there is only one format
+    options.diffFormatEngine = userOptions.diffFormatEngine || "github";
 
-  const formatPatches = DIFF_FORMAT_ENGINES[options.diffFormatEngine];
+    const diff = spawn("git", [
+      "diff",
+      "-U0",
+      "-w",
+      userOptions.diffAgainstReference,
+      options.startsWith,
+    ]);
 
-  const diffOpts = { contextLines: 0 };
+    const data = [];
+    const dataStdErr = [];
 
-  return diffCurrentHeadWithReference(
-    options.gitDir,
-    options.diffAgainstReference,
-    {
-      diffOpts,
-    }
-  )
-    .then(diff => getChanges(diff, { patchesFilter }))
-    .then(data => {
-      if (!data.patches || data.patches.length === 0) {
-        lines.push(options.noChangeMessage);
-        lines.push("");
-
-        return options.noChangeExitCode;
-      }
-
-      lines.push(formatPatches(data.patches));
-      lines.push("");
-
-      return lines;
+    diff.stdout.on("data", chunk => {
+      data.push(chunk.toString());
     });
+
+    diff.stderr.on("data", chunk => {
+      dataStdErr.push(chunk.toString());
+    });
+
+    diff.on("close", code => {
+      if (code !== 0) {
+        resolve({
+          lines: ["Unexpected error"].concat(dataStdErr.join("").split("\n")),
+          exitCode: code,
+        });
+      } else {
+        if (data.length > 0) {
+          const lines = ["```diff"]
+            .concat(
+              data
+                .join("")
+                .split("\n")
+                .filter(line => ["-", "+"].includes(line[0]))
+                .slice(1)
+            )
+            .concat(["```"]);
+
+          resolve({ lines, exitCode: 0 });
+        } else {
+          resolve({
+            lines: [options.noChangeMessage],
+            exitCode: options.noChangeExitCode,
+          });
+        }
+      }
+    });
+  });
 };
 
 module.exports = {

@@ -1,6 +1,6 @@
 {
   "name": "@keymux/dev_utils",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A set of developer and devops utilities for projects",
   "main": "index.js",
   "license": "MIT",
@@ -18,9 +18,7 @@
     "test:unit": "scripts/test:wrapper.sh test:unit",
     "test:summary": "scripts/test:summary.sh"
   },
-  "dependencies": {
-    "nodegit": "^0.20.3"
-  },
+  "dependencies": {},
   "devDependencies": {
     "chai": "^4.1.2",
     "eslint": "^4.18.1",
