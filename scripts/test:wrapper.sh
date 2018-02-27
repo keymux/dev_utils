@@ -9,6 +9,6 @@ EXIT_CODES_DIR="${REPORTS_DIR}/exitCodes"
 
 mkdir -p ${EXIT_CODES_DIR}
 
-scripts/${1}.sh
+scripts/${1}.sh "${@:2}"
 
 echo $? >> ${EXIT_CODES_DIR}/${1}
