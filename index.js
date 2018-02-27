@@ -1,6 +1,5 @@
 const path = require("path");
 const { spawn } = require("child_process");
-const { print } = require("./lib/utils");
 
 const eslint = require("./lib/formatting/linter/eslint");
 const nyc = require("./lib/nyc");
