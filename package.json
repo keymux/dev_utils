@@ -18,9 +18,7 @@
     "test:unit": "scripts/test:wrapper.sh test:unit",
     "test:summary": "scripts/test:summary.sh"
   },
-  "dependencies": {
-    "nodegit": "^0.20.3"
-  },
+  "dependencies": {},
   "devDependencies": {
     "chai": "^4.1.2",
     "eslint": "^4.18.1",
