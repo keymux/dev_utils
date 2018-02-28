@@ -5,6 +5,9 @@ const eslint = require("./lib/formatting/linter/eslint");
 const nyc = require("./lib/nyc");
 const mochawesome = require("./lib/mochawesome");
 
+const util_fs = require("./lib/util_fs");
+const util = require("./test/lib/util");
+
 const diff = userOptions => {
   return new Promise(resolve => {
     const options = {};
@@ -78,5 +81,11 @@ module.exports = {
     eslint,
     nyc,
     mochawesome,
+  },
+  lib: {
+    util_fs,
+  },
+  test: {
+    util,
   },
 };

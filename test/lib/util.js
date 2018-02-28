@@ -1,7 +1,7 @@
 const path = require("path");
 const { expect } = require("chai");
 
-const root = process.env.ROOT_DIR;
+const root = process.env.ROOT_DIR || path.resolve(process.cwd());
 const libPath = "lib";
 
 const arrays = require(path.join(root, libPath, "arrays"));
