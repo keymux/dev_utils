@@ -13,7 +13,7 @@ const index = require(path.join(root, "index"));
 describe(path.basename(process.env.ROOT_DIR), () => {
   describe("index", () => {
     describe("exports", () => {
-      const expectedExports = ["simple"];
+      const expectedExports = ["simple", "lib", "test"];
 
       util.expectExports(index, expectedExports);
     });
@@ -21,6 +21,16 @@ describe(path.basename(process.env.ROOT_DIR), () => {
     describe("simple", () => {
       const expectedExports = ["diff", "eslint", "nyc", "mochawesome"];
       util.expectExports(index.simple, expectedExports);
+    });
+
+    describe("lib", () => {
+      const expectedExports = ["util_fs"];
+      util.expectExports(index.lib, expectedExports);
+    });
+
+    describe("test", () => {
+      const expectedExports = ["util"];
+      util.expectExports(index.test, expectedExports);
     });
   });
 
