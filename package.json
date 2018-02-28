@@ -1,11 +1,13 @@
 {
   "name": "@keymux/dev_utils",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "A set of developer and devops utilities for projects",
   "main": "index.js",
   "license": "MIT",
   "bin": {
-    "directory-changed": "bin/directory-changed.js"
+    "directory-changed": "bin/directory-changed.js",
+    "mochawesome-markdown": "bin/mochawesome-markdown.js",
+    "nyc-markdown": "bin/nyc-markdown.js"
   },
   "scripts": {
     "clean": "scripts/clean.sh",
