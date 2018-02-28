@@ -5,7 +5,9 @@
   "main": "index.js",
   "license": "MIT",
   "bin": {
-    "directory-changed": "bin/directory-changed.js"
+    "directory-changed": "bin/directory-changed.js",
+    "mochawesome-markdown": "bin/mochawesome-markdown.js",
+    "nyc-markdown": "bin/nyc-markdown.js"
   },
   "scripts": {
     "clean": "scripts/clean.sh",
