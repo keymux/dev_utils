@@ -1,10 +1,6 @@
-const path = require("path");
 const { expect } = require("chai");
 
-const root = process.env.ROOT_DIR || path.resolve(process.cwd());
-const libPath = "lib";
-
-const arrays = require(path.join(root, libPath, "arrays"));
+const arrays = require("../../lib/arrays");
 
 const expectExports = (module, expectedExports) => {
   arrays.uniqueConcat(expectedExports, Object.keys(module)).forEach(item => {
